@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💘</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  text-align: center;
+  background: pink;
+  overflow: hidden;
+}
+
+h1 { margin-top: 60px; }
+
+button {
+  padding: 15px 30px;
+  font-size: 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+#yes { background: hotpink; color: white; }
+#no { background: white; }
+
+#warning {
+  font-size: 30px;
+  color: red;
+  margin-top: 20px;
+}
+
+.hidden { display: none; }
+
+.envelope {
+  width: 220px;
+  height: 130px;
+  background: white;
+  border-radius: 12px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.envelope span { display: none; }
+.envelope.open span { display: block; }
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% {transform: translateY(-10vh);}
+  100% {transform: translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1">
+<h1>Will you be my Valentine Kashish? 💖</h1>
+
+<button id="yes">YES 💘</button>
+<button id="no">NO 😏</button>
+
+<div id="warning" class="hidden">
+Guddi napegi agar no karne ka sochri h 😤
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="hidden">
+<h1>YAYYYYY 💕🎉 LOVE YOU</h1>
+<button id="next1">Next ➡️</button>
+</div>
+
+<!-- PAGE 3 (3 envelopes) -->
+<div id="page3" class="hidden">
+<h1>Open for a surprise 💌</h1>
+
+<div class="envelope wrong"><span>abey oo galat wala pick kr liya 😭</span></div>
+<div class="envelope wrong"><span>bih ye galat envelope h 😂</span></div>
+<div class="envelope wrong"><span>nah this is the wrong one lmao 🤣</span></div>
+</div>
+
+<!-- PAGE 4 (4th envelope) -->
+<div id="page4" class="hidden">
+<h1>One more envelope 😌💘</h1>
+
+<div id="fourth" class="envelope">
+<span>Click here 💖</span>
+</div>
+</div>
+
+<!-- PAGE 5 (final) -->
+<div id="page5" class="hidden">
+<h1>
+i love you kashish, i love you the most and you are so precious to me,
+i want you in every life and you are the most prettiest girl in this whole world,
+i want you to be my valentine forever and ever.
+i love you my munchkin my love 💘💞
+</h1>
+
+<h2>Thank you for being my Valentine 💌💖</h2>
+<h3>With love: Aryan</h3>
+</div>
+
+<script>
+let yes=document.getElementById("yes");
+let no=document.getElementById("no");
+let warning=document.getElementById("warning");
+let tries=0;
+
+no.addEventListener("mouseover",()=>{
+  tries++;
+  no.style.position="absolute";
+  no.style.left=Math.random()*window.innerWidth+"px";
+  no.style.top=Math.random()*window.innerHeight+"px";
+
+  if(tries>3){
+    warning.classList.remove("hidden");
+    yes.style.transform="scale(1.5)";
+  }
+});
+
+yes.onclick=()=>{
+  document.getElementById("page1").classList.add("hidden");
+  document.getElementById("page2").classList.remove("hidden");
+};
+
+document.getElementById("next1").onclick=()=>{
+  document.getElementById("page2").classList.add("hidden");
+  document.getElementById("page3").classList.remove("hidden");
+};
+
+let opened=0;
+document.querySelectorAll(".wrong").forEach(env=>{
+  env.onclick=()=>{
+    if(!env.classList.contains("open")){
+      env.classList.add("open");
+      opened++;
+      if(opened===3){
+        setTimeout(()=>{
+          document.getElementById("page3").classList.add("hidden");
+          document.getElementById("page4").classList.remove("hidden");
+        },600);
+      }
+    }
+  };
+});
+
+document.getElementById("fourth").onclick=()=>{
+  document.getElementById("page4").classList.add("hidden");
+  document.getElementById("page5").classList.remove("hidden");
+};
+
+function hearts(){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+}
+setInterval(hearts,300);
+</script>
+
+</body>
+</html>
+
+
